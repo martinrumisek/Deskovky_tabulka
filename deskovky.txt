@@ -1,4 +1,4 @@
-Monopoli;true;3
+Monopoly;true;3
 Člověče;false;2
 Žolik;true;1
 Katan;false;2

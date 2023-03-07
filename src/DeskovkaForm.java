@@ -16,14 +16,14 @@ public class DeskovkaForm extends JFrame {
     private JButton btnBack;
 
     int pocetStranek = 0;
-
+    private List<Deskovka> seznam = new ArrayList<>();
     public DeskovkaForm() {
         vypis(0);
         btnNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             SouborDeskovka deskovka = new SouborDeskovka();
-            pocetStranek++;
+                pocetStranek++;
                 vypis(pocetStranek);
             }
         });
@@ -42,7 +42,17 @@ public class DeskovkaForm extends JFrame {
 
     void vypis(int index){
             SouborDeskovka souborDeskovka = new SouborDeskovka();
-            List<Deskovka> seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
+            seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
+            if(index == seznam.size() - 1){
+                btnBack.setEnabled(true);
+                btnNext.setEnabled(false);
+            }else if(index == 0){
+                btnBack.setEnabled(false);
+                btnNext.setEnabled(true);
+            }else{
+                btnBack.setEnabled(true);
+                btnNext.setEnabled(true);
+            }
             Deskovka pocetSeznam = seznam.get(index);
             viewText.setText(pocetSeznam.getNazev());
             if (pocetSeznam.isZakoupeno() == true){
