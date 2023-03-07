@@ -30,12 +30,8 @@ public class DeskovkaForm extends JFrame {
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if (pocetStranek > 0){
-                   pocetStranek--;
-                   vypis(pocetStranek);
-               }else{
-                   pocetStranek = 0;
-               }
+                pocetStranek--;
+                vypis(pocetStranek);
             }
         });
     }
