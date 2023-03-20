@@ -9,6 +9,7 @@ public class Deskovka {
         this.oblibenost = oblibenost;
     }
 
+
     public String getNazev() {
         return nazev;
     }

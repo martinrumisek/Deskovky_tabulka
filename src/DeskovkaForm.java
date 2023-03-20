@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,11 @@ public class DeskovkaForm extends JFrame {
     private JLabel mainLabel;
     private JButton btnNext;
     private JButton btnBack;
-
-    int pocetStranek = 0;
+    private int pocetStranek = 0;
     private List<Deskovka> seznam = new ArrayList<>();
     public DeskovkaForm() {
         vypis(0);
+
         btnNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
