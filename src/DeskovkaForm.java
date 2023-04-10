@@ -1,9 +1,10 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DeskovkaForm extends JFrame {
     private JPanel mainPanel;
@@ -15,8 +16,10 @@ public class DeskovkaForm extends JFrame {
     private JLabel mainLabel;
     private JButton btnNext;
     private JButton btnBack;
+    private JTable table;
     private int pocetStranek = 0;
     private List<Deskovka> seznam = new ArrayList<>();
+
     public DeskovkaForm() {
         vypis(0);
 
@@ -35,44 +38,52 @@ public class DeskovkaForm extends JFrame {
                 vypis(pocetStranek);
             }
         });
+        /*for (Deskovka data: seznam) {
+            data.getNazev(), data.isZakoupeno(), data.getOblibenost();
+        }*/
+            Object[][] data = {{"Monopoly", "true", "1"}, {"Člověče", "false", "3"},{"Katan", "true", "2"},{"Bang", "true", "3"}};
+        table.setModel(new DefaultTableModel(
+                data,
+                new String[]{"Název", "Koupeno", "Oblíbenost"}
+        ));
     }
 
-    void vypis(int index){
-            SouborDeskovka souborDeskovka = new SouborDeskovka();
-            seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
-            if(index == seznam.size() - 1){
-                btnBack.setEnabled(true);
-                btnNext.setEnabled(false);
-            }else if(index == 0){
-                btnBack.setEnabled(false);
-                btnNext.setEnabled(true);
-            }else{
-                btnBack.setEnabled(true);
-                btnNext.setEnabled(true);
-            }
-            Deskovka pocetSeznam = seznam.get(index);
-            viewText.setText(pocetSeznam.getNazev());
-            if (pocetSeznam.isZakoupeno() == true){
-                checkBox.setSelected(true);
-            }else {
-                checkBox.setSelected(false);
-            }
-            if (pocetSeznam.getOblibenost() == 1){
-                btnLike1.setSelected(true);
-            }else{
-                btnLike1.setSelected(false);
-            }
-            if(pocetSeznam.getOblibenost() == 2){
-                btnLike2.setSelected(true);
-            }else{
-                btnLike2.setSelected(false);
-            }
-            if(pocetSeznam.getOblibenost() == 3){
-                btnLike3.setSelected(true);
-            }else{
-                btnLike3.setSelected(false);
-            }
+    void vypis(int index) {
+        SouborDeskovka souborDeskovka = new SouborDeskovka();
+        seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
+        if (index == seznam.size() - 1) {
+            btnBack.setEnabled(true);
+            btnNext.setEnabled(false);
+        } else if (index == 0) {
+            btnBack.setEnabled(false);
+            btnNext.setEnabled(true);
+        } else {
+            btnBack.setEnabled(true);
+            btnNext.setEnabled(true);
         }
+        Deskovka pocetSeznam = seznam.get(index);
+        viewText.setText(pocetSeznam.getNazev());
+        if (pocetSeznam.isZakoupeno() == true) {
+            checkBox.setSelected(true);
+        } else {
+            checkBox.setSelected(false);
+        }
+        if (pocetSeznam.getOblibenost() == 1) {
+            btnLike1.setSelected(true);
+        } else {
+            btnLike1.setSelected(false);
+        }
+        if (pocetSeznam.getOblibenost() == 2) {
+            btnLike2.setSelected(true);
+        } else {
+            btnLike2.setSelected(false);
+        }
+        if (pocetSeznam.getOblibenost() == 3) {
+            btnLike3.setSelected(true);
+        } else {
+            btnLike3.setSelected(false);
+        }
+    }
     public static void main(String[] args) {
         DeskovkaForm deskovka = new DeskovkaForm();
         deskovka.setContentPane(deskovka.mainPanel);
@@ -85,4 +96,5 @@ public class DeskovkaForm extends JFrame {
         btnGroup.add(deskovka.btnLike2);
         btnGroup.add(deskovka.btnLike3);
     }
+
 }
