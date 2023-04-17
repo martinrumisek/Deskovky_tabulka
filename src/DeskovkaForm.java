@@ -1,10 +1,12 @@
 import javax.swing.*;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DeskovkaForm extends JFrame {
     private JPanel mainPanel;
@@ -26,7 +28,7 @@ public class DeskovkaForm extends JFrame {
         btnNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            SouborDeskovka deskovka = new SouborDeskovka();
+                SouborDeskovka deskovka = new SouborDeskovka();
                 pocetStranek++;
                 vypis(pocetStranek);
             }
@@ -38,14 +40,68 @@ public class DeskovkaForm extends JFrame {
                 vypis(pocetStranek);
             }
         });
-        /*for (Deskovka data: seznam) {
-            data.getNazev(), data.isZakoupeno(), data.getOblibenost();
-        }*/
-            Object[][] data = {{"Monopoly", "true", "1"}, {"Člověče", "false", "3"},{"Katan", "true", "2"},{"Bang", "true", "3"}};
-        table.setModel(new DefaultTableModel(
-                data,
-                new String[]{"Název", "Koupeno", "Oblíbenost"}
-        ));
+        SouborDeskovka souborDeskovka = new SouborDeskovka();
+        seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
+        table.setModel(new javax.swing.table.TableModel() {
+            private final String[] COLUMNS = {"Název", "Koupeno", "Oblíbenost"};
+            @Override
+            public int getRowCount() {
+                return seznam.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return COLUMNS.length;
+            }
+
+            @Override
+            public String getColumnName(int columnIndex) {
+                return COLUMNS[columnIndex];
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if(getValueAt(0, columnIndex)!= null){
+                    return getValueAt(0, columnIndex).getClass();
+                }else {
+                    return Object.class;
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                return switch (columnIndex){
+                    case 0 -> seznam.get(rowIndex).getNazev();
+                    case 1 -> seznam.get(rowIndex).isZakoupeno();
+                    case 2 -> seznam.get(rowIndex).getOblibenost();
+                    default -> "-";
+                };
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+            }
+
+            @Override
+            public void addTableModelListener(TableModelListener l) {
+
+            }
+
+            @Override
+            public void removeTableModelListener(TableModelListener l) {
+
+            }
+        });
+        /*SouborDeskovka souborDeskovka = new SouborDeskovka();
+        seznam = souborDeskovka.vypisSoubor("deskovky.txt", ";");
+        TableModel tableModel = new TableModel(seznam);
+        table.setModel(tableModel);*/
     }
 
     void vypis(int index) {
