@@ -1,8 +1,5 @@
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ public class DeskovkaForm extends JFrame {
     private JButton btnNext;
     private JButton btnBack;
     private JTable table;
+    private JScrollPane scrollPaneTable;
     private int pocetStranek = 0;
     private List<Deskovka> seznam = new ArrayList<>();
 

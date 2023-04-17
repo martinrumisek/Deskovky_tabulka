@@ -1,4 +1,10 @@
 Monopoly;true;1
 Člověče;false;3
-Katan;true;2
+Catan - Hra o trůny: noční hlídka;true;2
+Catan - Hvězdoplavci;false;1
+Catan - Duel;false;2
+Canvas;false;3
 Bang;true;3
+Monopoly Zloděj;false;2
+Kartové monopoly;true;3
+Uno;true;3
